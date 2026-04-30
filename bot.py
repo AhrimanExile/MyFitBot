@@ -1,6 +1,7 @@
 import asyncio
 import logging
-from handlers import common_router, bmi_router, calories_router
+from handlers import common_router, bmi_router, calories_router, profile_router, myprofile_router
+from database import init_db
 
 from aiogram import Bot, Dispatcher
 
@@ -14,7 +15,8 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 async def main():
-    dp.include_routers(common_router, bmi_router, calories_router)
+    await init_db()
+    dp.include_routers(common_router, bmi_router, calories_router, profile_router, myprofile_router)
     await dp.start_polling(bot)
 
 if __name__ == '__main__':
